@@ -154,7 +154,7 @@ export function AreaChartCard({ className }: { className?: string }) {
     })
 
     return (
-        <Card className="w-full md:w-[80%]">
+        <Card className="w-full md:w-2/3">
             <CardHeader className={cn(`flex  items-center gap-2 space-y-0 border-b py-5 sm:flex-row`, { className })}>
                 <div className="grid flex-1 gap-1 text-center sm:text-left">
                     <CardTitle>Area Chart - Interactive</CardTitle>

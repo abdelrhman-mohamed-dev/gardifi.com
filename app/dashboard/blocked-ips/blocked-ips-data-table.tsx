@@ -145,12 +145,12 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
-                                    className=" cursor-pointer h-[50px]"
+                                    className=" cursor-pointer "
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className="text-center whitespace-nowrap" key={cell.id}>
+                                        <TableCell className="text-center whitespace-nowrap p-1" key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

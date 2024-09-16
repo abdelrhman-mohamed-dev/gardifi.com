@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="rounded-lg dark:bg-black text-black dark:text-white p-4 border">
+        <div className="rounded-lg dark:bg-gray-500/5 text-black dark:text-white p-4 border">
             <div className="flex flex-col gap-4 md:flex-row items-center justify-between py-4">
                 <Input
                     placeholder="Filter ip..."
@@ -145,7 +145,7 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
-                                    className=" cursor-pointer h-[50px]"
+                                    className=" cursor-pointer !h-6"
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >

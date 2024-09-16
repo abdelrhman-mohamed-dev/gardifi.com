@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="rounded-lg dark:bg-black text-black dark:text-white p-4 border">
+        <div className="rounded-lg dark:bg-gray-500/5 text-black dark:text-white p-4 border">
             <div className="flex items-center justify-between py-4">
                 <Input
                     placeholder="Filter emails..."

@@ -98,7 +98,7 @@ export function DataTable<TData, TValue>({
     };
 
     return (
-        <div className="rounded-lg dark:bg-black text-black dark:text-white p-4 border">
+        <div className="rounded-lg dark:bg-gray-500/5 text-black dark:text-white p-4 border">
             <div className="flex flex-col md:flex-row items-center justify-between py-4">
                 <Input
                     placeholder="Filter ip..."
@@ -172,12 +172,12 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
-                                    className=" cursor-pointer h-[50px]"
+                                    className=" cursor-pointer "
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell className="text-center whitespace-nowrap" key={cell.id}>
+                                        <TableCell className="text-center whitespace-nowrap p-1" key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

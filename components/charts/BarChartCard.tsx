@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
     Card,
@@ -65,16 +65,16 @@ export function BarChartCard(BarChartCardProps: BarChartCardProps) {
             </CardHeader>
             <CardContent>
 
-                <ChartContainer className=" min-h-[80px]" config={chartConfig}>
+                <ChartContainer className=" min-h-[80px] " config={chartConfig}>
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
-                        {/* <XAxis
+                        <XAxis
                             dataKey="month"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
                             tickFormatter={(value) => value.slice(0, 3)}
-                        /> */}
+                        />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
