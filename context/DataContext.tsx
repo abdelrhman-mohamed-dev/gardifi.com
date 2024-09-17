@@ -221,10 +221,6 @@ type SingleNoteData = {
     updated_at: string;
 }
 
-type NotesData = {
-    notes: SingleNoteData[]
-}
-
 type DataContextType = {
     accountData: AccountData | null;
     loading: boolean;
@@ -245,10 +241,10 @@ type DataContextType = {
     settingsData: SettingsData | null;
     setNewSettings: (accountId: string, is_vpn: boolean, isProxy: boolean, isSpam: boolean, isSuspicious: boolean, isTorNode: boolean) => Promise<boolean>;
     fetchNotesData: () => Promise<void>;
-    notesData: NotesData | null;
+    notesData: SingleNoteData[] | null;
     addNewNote: (content: string, is_important: string) => Promise<void>;
-    deleteNote: (conetnt: string, is_important: string) => Promise<void>;
-    editNote: (content: string, is_important: string) => Promise<void>;
+    deleteNote: (id: number) => Promise<void>;
+    editNote: (id: number, content: string, is_important: string) => Promise<void>;
 };
 
 
@@ -264,7 +260,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [blockedIpData, setBlockedIpData] = useState<BlockIpData | null>(null);
     const [allowedIpData, setAllowedIpData] = useState<AllowedIpData | null>(null);
     const [settingsData, setSettingsData] = useState<SettingsData | null>(null);
-    const [notesData, setNotesData] = useState<NotesData | null>(null);
+    const [notesData, setNotesData] = useState<SingleNoteData[] | null>(null);
 
     const fetchAccountData = async () => {
         try {
@@ -576,6 +572,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const addNewNote = async (content: string, is_important: string) => {
+        console.log(content, is_important, "note data")
         try {
             if (!token) throw new Error('No token available');
 
@@ -583,7 +580,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             formData.append('content', content);
             formData.append('is_important', is_important);
 
-            const response = await fetch(`${baseUrl}/users/notes/store`, {
+            const response = await fetch(`${baseUrl}/users/notes`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -598,14 +595,67 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             toast.success("تم اضافة الملاحظة بنجاح");
             await fetchNotesData();
 
+
         } catch (error) {
             console.error('Error adding note:', error);
             setError(error instanceof Error ? error.message : 'Failed to add note');
         }
     }
 
+    const deleteNote = async (id: number) => {
+
+        try {
+            if (!token) throw new Error('No token available');
+            const response = await fetch(`${baseUrl}/users/notes/destroy/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete note');
+            }
+
+            toast.success("تم حذف الملاحظة بنجاح");
+            await fetchNotesData();
+
+        } catch (error) {
+            console.error('Error deleting note:', error);
+            setError(error instanceof Error ? error.message : 'Failed to delete note');
+        }
+
+    }
+
+    const editNote = async (id: number, content: string, is_important: string) => {
+
+        try {
+            if (!token) throw new Error('No token available');
+            const formData = new FormData();
+            formData.append('content', content);
+            formData.append('is_important', is_important);
+
+            const response = await fetch(`${baseUrl}/users/notes/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+            if (!response.ok) {
+                throw new Error('Failed to edit note');
+            }
+
+            toast.success("تم تعديل الملاحظة بنجاح");
+            await fetchNotesData();
+
+        } catch (error) {
+            console.error('Error editing note:', error);
+            setError(error instanceof Error ? error.message : 'Failed to edit note');
+        }
+    }
+
     return (
-        <DataContext.Provider value={{ addNewNote, notesData, fetchNotesData, accountData, DeleteIp, clicksData, addNewIp, fetchClicksData, fetchCampaignData, campaignData, addNewAccount, loading, error, fetchAllowedIpData, allowedIpData, fetchBlockedIpData, blockedIpData, setNewSettings, fetchAccountData, fetchSettingsData, settingsData }}>
+        <DataContext.Provider value={{ editNote, deleteNote, addNewNote, notesData, fetchNotesData, accountData, DeleteIp, clicksData, addNewIp, fetchClicksData, fetchCampaignData, campaignData, addNewAccount, loading, error, fetchAllowedIpData, allowedIpData, fetchBlockedIpData, blockedIpData, setNewSettings, fetchAccountData, fetchSettingsData, settingsData }}>
             {children}
         </DataContext.Provider>
     );
