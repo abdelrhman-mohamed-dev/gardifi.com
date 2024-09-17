@@ -210,6 +210,20 @@ type SettingsData = {
     banSettings: BanSettings[];
 };
 
+// notes Data 
+
+type SingleNoteData = {
+    id: number;
+    content: string;
+    user_id: number;
+    is_important: string;
+    created_at: string;
+    updated_at: string;
+}
+
+type NotesData = {
+    notes: SingleNoteData[]
+}
 
 type DataContextType = {
     accountData: AccountData | null;
@@ -230,7 +244,13 @@ type DataContextType = {
     fetchSettingsData: () => Promise<void>;
     settingsData: SettingsData | null;
     setNewSettings: (accountId: string, is_vpn: boolean, isProxy: boolean, isSpam: boolean, isSuspicious: boolean, isTorNode: boolean) => Promise<boolean>;
+    fetchNotesData: () => Promise<void>;
+    notesData: NotesData | null;
+    addNewNote: (content: string, is_important: string) => Promise<void>;
+    deleteNote: (conetnt: string, is_important: string) => Promise<void>;
+    editNote: (content: string, is_important: string) => Promise<void>;
 };
+
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
@@ -244,6 +264,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [blockedIpData, setBlockedIpData] = useState<BlockIpData | null>(null);
     const [allowedIpData, setAllowedIpData] = useState<AllowedIpData | null>(null);
     const [settingsData, setSettingsData] = useState<SettingsData | null>(null);
+    const [notesData, setNotesData] = useState<NotesData | null>(null);
 
     const fetchAccountData = async () => {
         try {
@@ -527,8 +548,64 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    const fetchNotesData = async () => {
+        try {
+            setLoading(true);
+            if (token) {
+                const response = await fetch(`${baseUrl}/users/notes`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Cache-Control': 'no-cache',
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                const data = await response.json();
+                setNotesData(data);
+            } else {
+                throw new Error('No token provided');
+            }
+        } catch (error) {
+            console.error('Error fetching notes data:', error);
+            setError(error instanceof Error ? error.message : 'Failed to fetch data');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addNewNote = async (content: string, is_important: string) => {
+        try {
+            if (!token) throw new Error('No token available');
+
+            const formData = new FormData();
+            formData.append('content', content);
+            formData.append('is_important', is_important);
+
+            const response = await fetch(`${baseUrl}/users/notes/store`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add note');
+            }
+
+            toast.success("تم اضافة الملاحظة بنجاح");
+            await fetchNotesData();
+
+        } catch (error) {
+            console.error('Error adding note:', error);
+            setError(error instanceof Error ? error.message : 'Failed to add note');
+        }
+    }
+
     return (
-        <DataContext.Provider value={{ accountData, DeleteIp, clicksData, addNewIp, fetchClicksData, fetchCampaignData, campaignData, addNewAccount, loading, error, fetchAllowedIpData, allowedIpData, fetchBlockedIpData, blockedIpData, setNewSettings, fetchAccountData, fetchSettingsData, settingsData }}>
+        <DataContext.Provider value={{ addNewNote, notesData, fetchNotesData, accountData, DeleteIp, clicksData, addNewIp, fetchClicksData, fetchCampaignData, campaignData, addNewAccount, loading, error, fetchAllowedIpData, allowedIpData, fetchBlockedIpData, blockedIpData, setNewSettings, fetchAccountData, fetchSettingsData, settingsData }}>
             {children}
         </DataContext.Provider>
     );

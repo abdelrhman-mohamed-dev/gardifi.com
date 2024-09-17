@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardContent, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select'
+import { useData } from '@/context/DataContext'
 
 const NotesCard = () => {
+    const { fetchNotesData, notesData, addNewNote } = useData()
+    useEffect(() => {
+        fetchNotesData()
+    }, [])
+
     return (
         <div className="w-full md:w-1/3 h-full">
             <Card>

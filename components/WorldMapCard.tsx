@@ -12,7 +12,7 @@ const WorldMapCard = () => {
         IND: 800,
     }
     return (
-        <Card className="p-3 w-[50%] h-[450px]">
+        <Card className="p-3  w-full h-full md:w-[50%] ">
             <h2 className="font-bold flex items-center gap-2 text-black dark:text-white">
                 اماكن تواجد المستخدمين
                 <span>

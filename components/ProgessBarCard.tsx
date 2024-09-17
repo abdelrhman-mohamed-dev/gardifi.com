@@ -7,7 +7,7 @@ import { HelpCircle } from 'lucide-react'
 
 const PriceProgessBarCard = () => {
     return (
-        <div className="w-[300px]">
+        <div className="w-full md:w-[300px] ">
             <Card className="p-4">
                 <h2 className="font-bold flex items-center gap-2 text-black dark:text-white">
                     اجمالي مصاريف الاعلانات

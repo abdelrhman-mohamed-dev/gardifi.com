@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 const TotalExclutions = ({ className }: { className?: string }) => {
     return (
-        <div className={cn("w-[300px]", className)}>
+        <div className={cn("w-full md:w-[300px]", className)}>
             <Card className="p-4">
                 <h2 className="font-bold flex items-center gap-2 text-black dark:text-white">
                     اجمالي الحظر
