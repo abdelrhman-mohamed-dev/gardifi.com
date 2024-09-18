@@ -1,89 +1,90 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
-import {
-    IconBrandTabler,
-    IconUserBolt,
-    IconMouse,
-    IconBan,
-    IconListCheck,
-    IconSettings,
-    IconPhoneSpark,
-    IconLogout
-} from "@tabler/icons-react";
+// import React, { useState } from "react";
+// import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
+// import {
+//     IconBrandTabler,
+//     IconUserBolt,
+//     IconMouse,
+//     IconBan,
+//     IconListCheck,
+//     IconSettings,
+//     IconPhoneSpark,
+//     IconLogout
+// } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/context/AuthContext";
+// import { useAuth } from "@/context/AuthContext";
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
-    const { logout, user } = useAuth()
-    const links = [
-        {
-            label: "لوحه التحكم",
-            href: "/dashboard",
-            icon: (
-                <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "الحسابات",
-            href: "/dashboard/accounts",
-            icon: (
-                <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "الحملات",
-            href: "/dashboard/campaigns",
-            icon: (
-                <IconPhoneSpark className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "النقرات",
-            href: "/dashboard/clicks",
-            icon: (
-                <IconMouse className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "عنوان ال (IP) المحظور",
-            href: "/dashboard/blocked-ips",
-            icon: (
-                <IconBan className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "قائمه ال (IP) المسموحه",
-            href: "/dashboard/allowed-ips",
-            icon: (
-                <IconListCheck className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "اعدادات الحظر",
-            href: "/dashboard/blocking-settings",
-            icon: (
-                <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-            ),
-        },
-        {
-            label: "تسجيل الخروج",
-            href: "/logout",
-            onclick: () => logout(),
-            icon: (
-                <IconLogout
-                    className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0"
-                    strokeWidth={2}
-                />
-            ),
-        },
+    // const { logout, user } = useAuth()
+    // const { logout } = useAuth()
+    // const links = [
+    //     {
+    //         label: "لوحه التحكم",
+    //         href: "/dashboard",
+    //         icon: (
+    //             <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "الحسابات",
+    //         href: "/dashboard/accounts",
+    //         icon: (
+    //             <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "الحملات",
+    //         href: "/dashboard/campaigns",
+    //         icon: (
+    //             <IconPhoneSpark className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "النقرات",
+    //         href: "/dashboard/clicks",
+    //         icon: (
+    //             <IconMouse className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "عنوان ال (IP) المحظور",
+    //         href: "/dashboard/blocked-ips",
+    //         icon: (
+    //             <IconBan className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "قائمه ال (IP) المسموحه",
+    //         href: "/dashboard/allowed-ips",
+    //         icon: (
+    //             <IconListCheck className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "اعدادات الحظر",
+    //         href: "/dashboard/blocking-settings",
+    //         icon: (
+    //             <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //         ),
+    //     },
+    //     {
+    //         label: "تسجيل الخروج",
+    //         href: "/logout",
+    //         onclick: () => logout(),
+    //         icon: (
+    //             <IconLogout
+    //                 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0"
+    //                 strokeWidth={2}
+    //             />
+    //         ),
+    //     },
 
-    ];
-    const [open, setOpen] = useState(false);
+    // ];
+    // const [open, setOpen] = useState(false);
     return (
         <div
             className={cn(

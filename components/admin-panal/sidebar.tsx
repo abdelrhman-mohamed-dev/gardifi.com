@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useStore } from "@/hooks/use-store";
@@ -22,7 +21,7 @@ export function Sidebar() {
             )}
         >
             <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />
-            <div className="relative h-full flex flex-col px-3 py-4 overflow-y-auto shadow-md ">
+            <div className="relative h-full flex flex-col px-3 py-2 overflow-y-auto shadow-md ">
                 <Button
                     className={cn(
                         "transition-transform !no-underline ease-in-out duration-300 mb-1",

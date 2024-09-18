@@ -17,6 +17,7 @@ import {
   IconSettings,
   TablerIcon,
   IconAdCircle,
+  IconUser,
 } from "@tabler/icons-react";
 
 type Submenu = {
@@ -120,6 +121,18 @@ export function getMenuList(pathname: string): Group[] {
           label: "اعدادات الحظر",
           active: pathname.includes("/dashboard/blocking-settings"),
           icon: IconSettings,
+          submenus: [],
+        },
+      ],
+    },
+    {
+      groupLabel: "",
+      menus: [
+        {
+          href: "/dashboard/profile",
+          label: "الصفحة الشخصيه",
+          active: pathname.includes("/dashboard/profile"),
+          icon: IconUser,
           submenus: [],
         },
       ],

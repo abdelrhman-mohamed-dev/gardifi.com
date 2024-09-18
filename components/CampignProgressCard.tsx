@@ -31,9 +31,9 @@ const CampignProgressCard = () => {
                     <span className="text-xs rounded-md dark:bg-gray-800 bg-gray-100 text-green-500 p-1 flex items-center">100% <IconArrowUp className="w-4 h-4" /></span>
                 </div>
                 <PriceProgressBar segments={[
-                    { value: 30, color: "bg-green-500" },
-                    { value: 20, color: "bg-orange-500" },
-                    { value: 20, color: "bg-red-500" },
+                    { value: 40, color: "bg-green-500" },
+                    { value: 50, color: "bg-orange-500" },
+                    { value: 10, color: "bg-red-500" },
                 ]} />
                 <div className="p-2 mt-2 space-y-2 text-sm">
                     <div className="flex justify-between">
