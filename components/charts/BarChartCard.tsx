@@ -1,96 +1,108 @@
-"use client"
-
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
+// import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import {
     Card,
     CardContent,
-    CardDescription,
+    // CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
+import { useData } from "@/context/DataContext";
 
-export const description = "A bar chart"
+export const description = "A bar chart";
 
-const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-
-]
-
+// Convert date to day format (e.g., "Mon")
+const formatToDay = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { weekday: "short" }); // Returns "Mon", "Tue", etc.
+};
 
 interface BarChartCardProps {
     title?: string;
     earnings?: number;
     chartColor?: string;
-    icon: React.ReactNode; // Add icon as a prop
-
+    icon: React.ReactNode;
 }
-export function BarChartCard(BarChartCardProps: BarChartCardProps) {
+
+export function BarChartCard({ title, earnings, chartColor, icon }: BarChartCardProps) {
+    const [chartData, setChartData] = useState<any>([]);
+    const { accountData } = useData()
+
+    useEffect(() => {
+        const formattedData = accountData?.chartData?.map((item: any) => ({
+            day: formatToDay(item.date),
+            clicks: item.total_clicks,
+        }));
+        setChartData(formattedData);
+    }, [])
+    // useEffect(() => {
+    //     // Fetch the API data
+    //     fetch("https://click.gardifi.com/api/users/google-account", {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: "Bearer " + localStorage.getItem("token"),
+    //         }
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             // Format API data
+    //             const formattedData = data.chartData.map((item: any) => ({
+    //                 day: formatToDay(item.date),
+    //                 clicks: item.total_clicks,
+    //             }));
+    //             setChartData(formattedData);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching chart data:", error);
+    //         });
+    // }, []);
+
     const chartConfig = {
         desktop: {
             label: "Users",
-            color: `hsl(var(--chart-${BarChartCardProps.chartColor || 1}))`,
+            color: `hsl(var(--chart-${chartColor || 1}))`,
         },
-    } satisfies ChartConfig
+    } satisfies ChartConfig;
+
     return (
         <Card className="w-full">
             <CardHeader>
-                <div className="flex gap-2 items-center">
-                    {BarChartCardProps.icon && <span className="text-xl">{BarChartCardProps.icon}</span>} {/* Render the icon */}
-                    <CardTitle>{BarChartCardProps.title}</CardTitle>
+                <div className="flex items-center justify-between">
 
+                    <div className="flex gap-2 items-center">
+                        {icon && <span className="text-xl">{icon}</span>}
+                        <CardTitle>{title}</CardTitle>
+                    </div>
+                    <span className="text-3xl font-bold">{earnings}</span>
                 </div>
-                <CardDescription className="flex justify-between items-center">
-                    <span className="text-3xl font-bold">{BarChartCardProps.earnings}</span>
-                    <span className="text-red-500 flex gap-1">30.6% <TrendingUp /></span>
-                </CardDescription>
             </CardHeader>
             <CardContent>
-
-                <ChartContainer className=" min-h-[80px] " config={chartConfig}>
+                <ChartContainer className=" min-h-[80px] h-[190px] w-full" config={chartConfig}>
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="day"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
                         />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+                        <Bar dataKey="clicks" fill="var(--color-desktop)" radius={8} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
-            {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-                </div>
-                <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
-                </div>
-            </CardFooter> */}
         </Card>
-    )
+    );
 }

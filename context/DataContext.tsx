@@ -1,10 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { createContext, useContext, useState } from 'react';
 import { useAuth } from './AuthContext';
 import toast from 'react-hot-toast';
 import { baseUrl } from '@/lib/api';
 
+type chartData = {
+    day: string;
+    clicks: any;
+};
+
 type AccountData = {
+    chartData: chartData[]
     total_clicks: number;
     successful_clicks: number;
     blocked_clicks: number;
@@ -277,6 +284,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 }
                 const data = await response.json();
                 setAccountData(data);
+                console.log(data);
             } else {
                 throw new Error('No token provided');
             }

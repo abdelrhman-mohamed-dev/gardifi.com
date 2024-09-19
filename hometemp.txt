@@ -1,0 +1,238 @@
+ <main className="relative overflow-hidden flex flex-col items-center px-[100px] justify-center w-full">
+        <img className="absolute z-1 top-[-50px] " src="/assets/imgs/bg-blob.png" alt="" />
+        <img className="absolute z-1 top-[230px] left-[-30px] -rotate-2 h-[850px]" src="/assets/imgs/bg-lines.png" alt="" />
+        <div className="pt-32">
+
+          <h1 className="text-center font-bold text-[48px]">
+            حماية حملاتك الإعلانية بذكاء - اكتشف الأمان
+            <br /> من
+            <span className="text-[#4200FF]"> النقرات الوهمية{" "}</span>
+          </h1>
+
+          <div className="flex items-center justify-center relative h-52">
+            <div className="flex gap-5 items-center">
+              <button className="secoundary-home-page-button"
+              >جرب مجانا</button>
+              <button className="home-page-button"
+              >اشتري الان</button>
+
+            </div>
+          </div>
+
+        </div>
+        <div className="relative overflow-hidden flex items-center justify-center mt-12">
+          <img className="ml-[70px] w-full" src="/assets/imgs/macbook.png" alt="dashboard" />
+        </div>
+        <div className="relative mt-12 bg-black">
+          <div className="relative">
+            <div className="w-[339px] h-[29px] rounded-[24px] bg-[#0F003A]" />
+            <h2 className="absolute left-0 right-0 -top-10 text-[48px] text-center">
+              لماذا نحن
+              <span className="text-[#4200FF]">؟</span>
+            </h2>
+          </div>
+        </div>
+
+        <div className="mt-12 relative flex flex-col gap-12">
+          <img className="absolute top-[-300px] left-0 w-full h-[1200px]" src="/assets/imgs/section2-bg.png" alt="bg" />
+          <div className="flex flex-col md:flex-row gap-5">
+            {Cards.map((card) => {
+
+              const [hovered, setHovered] = useState(false);
+
+              const handleMouseEnter = () => setHovered(true);
+              const handleMouseLeave = () => setHovered(false);
+
+              return (
+
+                card.id <= 4 && (
+                  <div key={card.id} className="relative home-page-card pt-6 pr-6 pl-1" onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
+                    <div className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center icon">
+                      <card.icon fill={hovered ? "#FFFFFF" : "#0F003A"} />
+                    </div>
+                    <h3 className="text-[17px] font-bold w-full text-[#292019] hover:text-white mt-10">
+                      {card.title}
+                    </h3>
+                    <p className="text-[14px] text-[#6F6863] mt-2">{card.desc}</p>
+                  </div>
+                )
+              )
+            })}
+          </div>
+          <div className="flex flex-col md:flex-row gap-5">
+            {Cards.map((card) => {
+
+              const [hovered, setHovered] = useState(false);
+
+              const handleMouseEnter = () => setHovered(true);
+              const handleMouseLeave = () => setHovered(false);
+
+              return (
+
+                card.id > 4 && (
+                  <div key={card.id} className="relative home-page-card pt-6 pr-6 pl-1" onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
+                    <div className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center icon">
+                      <card.icon fill={hovered ? "#FFFFFF" : "#0F003A"} />
+                    </div>
+                    <h3 className="text-[17x] font-bold text-[#292019] hover:text-white mt-10">
+                      {card.title}
+                    </h3>
+                    <p className="text-[14px] text-[#6F6863] mt-2">{card.desc}</p>
+                  </div>
+                )
+              )
+            })}
+          </div>
+        </div>
+        <div className="relative ">
+          <h2 className="text-[40px] font-bold text-center mt-20">اختر الان ما يناسبك من الباقات المميزه لدينا</h2>
+          <div>
+            <Tabs defaultValue="account" className="w-full mt-12 flex items-center justify-center flex-col ">
+              <TabsList className="flex items-center justify-center h-[44px] bg-white w-fit p-0 rounded-[12px]">
+                <TabsTrigger
+                  className="w-[130px] h-[44px] bg-transparent text-[20px] rounded-[12px] data-[state=active]:bg-[#441CB7] data-[state=active]:text-white hover:bg-transparent"
+                  value="account"
+                >
+                  شهري
+                </TabsTrigger>
+                <TabsTrigger
+                  className="w-[130px] h-[44px] bg-transparent text-[20px] rounded-[12px] data-[state=active]:bg-[#441CB7] data-[state=active]:text-white hover:bg-transparent"
+                  value="password"
+                >
+                  سنوي
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="account" className="mt-20 rounded-[50px] h-fit price-bg">
+                <div className="flex items-center justify-center h-[552px] price-bg rounded-[50px]">
+                  {monthPrices.map((price) => (
+                    <div key={price.id} className="relative home-page-price-card rounded-[50px] overflow-hidden">
+                      {/* <div className="home-page-price-card rounded-[50px]"></div> */}
+                      <img className="absolute z-0 right-0 h-full" src="/assets/imgs/card-bg.png" alt="" />
+
+                      <div className="z-10 relative mt-12">
+
+                        {price.hot && (
+
+                          <span className="flex absolute items-center justify-center w-[124px] h-[31px] bg-[#FFFFFF40] border rounded-full border-[#FFFFFFB2] ">الاكثر شيوعا</span>
+                        )}
+                        <div className="-mt-4 px-4">
+                          <h2 className="text-[64px] w-full" dir="rtl">
+                            {price.price}
+                            <span className="text-[30px]" dir="rtl">
+                              {price.currency}
+                            </span>
+                          </h2>
+                          <h3 className="text-[32px] text-right">
+                            {price.title}
+                          </h3>
+                          <p className="text-[23px] text-[#9391A6] text-center mt-8">{price.supTitle}</p>
+                          <ul className="flex gap-5 mt-2 flex-col items-end px-5">
+                            {price.options.map((option) => (
+
+                              <li key={option.id} className="flex gap-5">
+                                {option.text}
+                                <LeftArrow />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="flex items-center justify-center mt-12">
+
+                          <Button className="">اختيار الخطه</Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {/* <div className="home-page-price-card rounded-[50px]"></div> */}
+                </div>
+              </TabsContent>
+              <TabsContent value="password" className="mt-20 rounded-[50px] h-fit price-bg">
+                <div className="flex items-center justify-center h-[552px] price-bg rounded-[50px]">
+                  {yearPrices.map((price) => (
+                    <div key={price.id} className="relative home-page-price-card rounded-[50px] overflow-hidden">
+                      {/* <div className="home-page-price-card rounded-[50px]"></div> */}
+                      <img className="absolute z-0 right-0 h-full" src="/assets/imgs/card-bg.png" alt="" />
+
+                      <div className="z-10 relative mt-12">
+
+                        {price.hot && (
+
+                          <span className="flex absolute items-center justify-center w-[124px] h-[31px] bg-[#FFFFFF40] border rounded-full border-[#FFFFFFB2] ">الاكثر شيوعا</span>
+                        )}
+                        <div className="-mt-4 px-4">
+                          <h2 className="text-[64px] w-full" dir="rtl">
+                            {price.price}
+                            <span className="text-[30px]" dir="rtl">
+                              {price.currency}
+                            </span>
+                          </h2>
+                          <h3 className="text-[32px] text-right">
+                            {price.title}
+                          </h3>
+                          <p className="text-[23px] text-[#9391A6] text-center mt-8">{price.supTitle}</p>
+                          <ul className="flex gap-5 mt-2 flex-col items-end px-5">
+                            {price.options.map((option) => (
+
+                              <li key={option.id} className="flex gap-5">
+                                {option.text}
+                                <LeftArrow />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="flex items-center justify-center mt-12">
+
+                          <Button className="text-[15px] text-[#3D19A4] w-[207px] h-[45px] rounded-[24px] border border-[#D7D7E9] bg-[#FFF]">اختيار الخطه</Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {/* <div className="home-page-price-card rounded-[50px]"></div> */}
+                </div>
+              </TabsContent>
+            </Tabs>
+
+          </div>
+        </div>
+
+        <div className="relative w-full mt-28">
+
+          <h2 className="text-[34px] text-right">الشراكاء</h2>
+          <p className="text-[16px] text-white w-[414px] text-right mt-8">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، مولد النص العربى مفيد.</p>
+          <div className="flex items-center justify-between mt-12">
+            {Companys.map((company) => (
+
+              <div key={company.id} className="home-page-companys-card">
+                <div className="relative w-[150px] h-[150px] flex items-center justify-center rounded-full  bg-[#461DBC]">
+                  <img src={company.logo} alt="company Logo" />
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </div>
+        <div className="relative w-full mt-28">
+          <img className=" w-full" src="/assets/imgs/contact-bg.png" alt="" />
+          <div className="absolute top-0 left-0 z-20">
+            <form className="w-[522.888px] h-[539px] rounded-[20px] bg-[#FFF] flex flex-col p-10 gap-8" >
+              <input className="w-[448.72px] h-[60px] text-[16px] text-[#0F003A] px-4 rounded-[5px] border border-[#0A142F] bg-white placeholder:text-gray-500" placeholder="الاسم" type="text" />
+              <input className="w-[448.72px] h-[60px] text-[16px] text-[#0F003A] px-4 rounded-[5px] border border-[#0A142F] bg-white placeholder:text-gray-500" placeholder="البريد الالكتروني" type="text" />
+              <textarea className="w-[448.72px] h-[165px] text-[16px] text-[#0F003A] p-4 rounded-[5px] border border-[#0A142F] bg-white placeholder:text-gray-500" placeholder="موضوع الرساله" name="" id=""></textarea>
+              {/* <input className="w-[20.396px] h-[22px] rounded-[3px] border border-[#A4A4A4] bg-white " type="checkbox" /> */}
+              <div className="flex gap-2 items-center">
+
+                <input type="checkbox" className="w-[20.5px] h-[22px] rounded-[3px] border border-[#A4A4A4] bg-white checked:appearance-auto appearance-none cursor-pointer" />
+
+
+                <span className="text-[#0F003A] text-[16px]">اوافق علي الشروط و الاحكام</span>
+              </div>
+              <div className="flex items-center justify-end">
+                <Button className="w-[144.471px] h-[50px] rounded-[10px] bg-[#0F003A] text-white hover:bg-[#0F003A] hover:text-white">ارسال الرساله</Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>

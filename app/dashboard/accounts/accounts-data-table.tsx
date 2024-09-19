@@ -68,6 +68,11 @@ export function DataTable<TData, TValue>({
             columnFilters,
             columnVisibility,
         },
+        initialState: {
+            pagination: {
+                pageSize: 100, // Set default rows per page to 100
+            },
+        },
     })
 
     // Function to convert the table data to CSV
@@ -170,7 +175,7 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
-                                    className=" cursor-pointer "
+                                    className="cursor-pointer "
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >

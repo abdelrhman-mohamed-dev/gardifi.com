@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ["assets.aceternity.com", "github.com"],
   },
+  // output: "standalone",
 };
 
 export default nextConfig;

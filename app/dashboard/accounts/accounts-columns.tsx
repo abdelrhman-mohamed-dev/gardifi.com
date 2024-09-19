@@ -59,8 +59,5 @@ export const columns: ColumnDef<AccountsColumns>[] = [
         accessorKey: "blockedIp",
         header: "Blocked IP",
     },
-    {
-        accessorKey: "savedBudget",
-        header: "Saved Budget",
-    }
+
 ]
